@@ -1,8 +1,12 @@
 package fr.eni.cave.bo.client;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -35,4 +39,9 @@ public class Client {
 
     @Column(name = "FIRST_NAME", nullable = false, length = 150)
     private String prenom;
+    
+//    fetch pour requete de jointure auto, si je recup client j aurais son adresse aussi
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @JoinColumn(name="ADDRESS_ID")
+    private Adresse adresse;
 }
